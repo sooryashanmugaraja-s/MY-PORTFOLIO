@@ -1,0 +1,699 @@
+/* ============================================================
+   SOORYA PORTFOLIO — styleport.css
+   Palette: Black · White · Yellow · Red (hover only on name)
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --black: #0a0a0a;
+  --black-soft: #111111;
+  --black-card: #161616;
+  --white: #f0f0f0;
+  --yellow: #f5c518;
+  --yellow-dim: #c9a012;
+  --yellow-glow: rgba(245, 197, 24, 0.35);
+  --red: #e03030;
+  --red-glow: rgba(224, 48, 48, 0.4);
+  --font-hero: "Bebas Neue", sans-serif;
+  --font-body: "Barlow", sans-serif;
+  --font-mono: "Space Mono", monospace;
+  --nav-h: 70px;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Subtle noise grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+  box-shadow: 0 2px 40px rgba(245, 197, 24, 0.06);
+  z-index: 1000;
+}
+
+/* Name / Logo — far left (markup changed to use an H1 link) */
+nav h1 {
+  margin: 0;
+  font-family: var(--font-hero);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+nav h1 a {
+  color: var(--white);
+  text-decoration: none;
+  cursor: default;
+  transition:
+    color 0.3s var(--ease),
+    text-shadow 0.3s var(--ease);
+}
+
+nav h1 a:hover {
+  color: var(--red);
+  text-shadow:
+    0 0 18px var(--red-glow),
+    0 0 40px var(--red-glow);
+}
+
+/* Nav links — far right (now wrapped in #others) */
+nav #others {
+  display: flex;
+  align-items: center;
+}
+
+nav #others a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  margin-left: clamp(1rem, 2.5vw, 2.2rem);
+  position: relative;
+  transition: color 0.3s var(--ease);
+}
+
+nav #others a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--yellow);
+  box-shadow: 0 0 8px var(--yellow-glow);
+  transition: width 0.35s var(--ease);
+}
+
+nav #others a:hover {
+  color: var(--yellow);
+}
+
+nav #others a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+section {
+  position: relative;
+  z-index: 1;
+  padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 8vw, 8rem);
+}
+
+section + section {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+#about {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 7rem);
+  min-height: 100vh;
+  padding-top: calc(var(--nav-h) + clamp(3rem, 6vw, 5rem));
+}
+
+/* Ambient background glow */
+#about::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(
+    circle,
+    rgba(245, 197, 24, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+/* ---------- Profile image ---------- */
+#about-container {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#about-container img {
+  width: clamp(200px, 25vw, 320px);
+  aspect-ratio: 1 / 1.2;
+  object-fit: cover;
+  border-radius: 50% / 45%;
+  border: 3px solid var(--yellow);
+  box-shadow:
+    0 0 0 6px rgba(245, 197, 24, 0.12),
+    0 0 40px var(--yellow-glow),
+    0 0 80px rgba(245, 197, 24, 0.15);
+  animation: floatImg 6s ease-in-out infinite;
+  transition:
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease);
+}
+
+#about-container img:hover {
+  box-shadow:
+    0 0 0 8px rgba(245, 197, 24, 0.2),
+    0 0 60px var(--yellow-glow),
+    0 0 120px rgba(245, 197, 24, 0.2);
+  transform: rotateY(8deg) rotateX(4deg) scale(1.03);
+}
+
+/* Decorative ring behind image */
+#about-container::before {
+  content: "";
+  position: absolute;
+  width: calc(clamp(200px, 25vw, 320px) + 40px);
+  aspect-ratio: 1 / 1.2;
+  border-radius: 50% / 45%;
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  animation: pulseRing 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#about-container::after {
+  content: "";
+  position: absolute;
+  width: calc(clamp(200px, 25vw, 320px) + 80px);
+  aspect-ratio: 1 / 1.2;
+  border-radius: 50% / 45%;
+  border: 1px solid rgba(245, 197, 24, 0.08);
+  animation: pulseRing 3s ease-in-out infinite 0.6s;
+  pointer-events: none;
+}
+
+/* ---------- About text ---------- */
+#text {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#text h2 {
+  font-family: var(--font-hero);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  letter-spacing: 0.05em;
+  line-height: 0.9;
+  color: var(--white);
+  text-shadow: 0 0 80px rgba(245, 197, 24, 0.15);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Role subtitle injected via pseudo — no HTML change needed */
+#text h2::after {
+  content: "FULL-STACK DEVELOPER";
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  text-shadow: 0 0 14px var(--yellow-glow);
+  margin-top: 0.9rem;
+  width: max-content;
+  /* override the yellow bar — now the text IS the accent */
+  height: auto;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Hide the bio paragraph — only picture + name + role shown */
+#text p {
+  display: none;
+}
+
+#aboutme {
+  background: var(--black-soft);
+  text-align: center;
+}
+
+#aboutme h2 {
+  font-family: var(--font-hero);
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+  text-shadow: 0 0 30px var(--yellow-glow);
+  margin-bottom: 2.5rem;
+}
+
+#aboutme p {
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 300;
+  color: rgba(240, 240, 240, 0.82);
+  line-height: 2;
+  border-left: 3px solid var(--yellow);
+  padding-left: 2rem;
+  text-align: left;
+  position: relative;
+}
+
+#aboutme p::before {
+  content: '"';
+  font-family: var(--font-hero);
+  font-size: 8rem;
+  color: rgba(245, 197, 24, 0.06);
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   WHY ME SECTION
+   ============================================================ */
+#whyme {
+  background: var(--black-soft);
+  text-align: center;
+}
+
+#whyme h2 {
+  font-family: var(--font-hero);
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+  text-shadow: 0 0 30px var(--yellow-glow);
+  margin-bottom: 2.5rem;
+}
+
+#whyme p {
+  max-width: 780px;
+  margin: 0 auto;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 300;
+  color: rgba(240, 240, 240, 0.82);
+  line-height: 2;
+  border-left: 3px solid var(--yellow);
+  padding-left: 2rem;
+  text-align: left;
+  position: relative;
+}
+
+#whyme p::before {
+  content: '"';
+  font-family: var(--font-hero);
+  font-size: 8rem;
+  color: rgba(245, 197, 24, 0.06);
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SKILLS SECTION
+   ============================================================ */
+#skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: clamp(5rem, 10vw, 9rem);
+}
+
+/* Shared card style for all skill divs */
+#skills > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  width: clamp(110px, 16vw, 160px);
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  background: var(--black-card);
+  border: 1px solid rgba(245, 197, 24, 0.15);
+  border-radius: 12px;
+  cursor: default;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease);
+}
+
+#skills > div:hover {
+  transform: translateY(-10px) scale(1.04);
+  border-color: var(--yellow);
+  box-shadow:
+    0 8px 40px var(--yellow-glow),
+    0 0 0 1px rgba(245, 197, 24, 0.2);
+}
+
+#skills img {
+  width: clamp(48px, 7vw, 72px);
+  height: clamp(48px, 7vw, 72px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(245, 197, 24, 0.3));
+  transition:
+    filter 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+#skills > div:hover img {
+  filter: drop-shadow(0 0 16px rgba(245, 197, 24, 0.6));
+  transform: rotate(-6deg) scale(1.1);
+}
+
+#skills p {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white);
+  transition: color 0.3s;
+}
+
+#skills > div:hover p {
+  color: var(--yellow);
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--black-soft);
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 8vw, 8rem);
+}
+
+#contact h2 {
+  font-family: var(--font-hero);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+  text-shadow: 0 0 30px var(--yellow-glow);
+  margin-bottom: 0.5rem;
+}
+
+#contact .intro {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.85;
+}
+
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  width: 100%;
+  max-width: 900px;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.4rem 1.25rem;
+  min-height: 170px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(245, 197, 24, 0.14);
+  border-radius: 20px;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    background 0.35s var(--ease);
+  text-decoration: none;
+  color: var(--white);
+}
+
+.contact-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--yellow);
+  background: rgba(245, 197, 24, 0.08);
+  box-shadow: 0 18px 40px rgba(245, 197, 24, 0.16);
+}
+
+.contact-card img {
+  width: clamp(42px, 5vw, 56px);
+  height: clamp(42px, 5vw, 56px);
+  object-fit: contain;
+
+  transition:
+    transform 0.3s var(--ease),
+    filter 0.3s var(--ease);
+}
+
+.contact-card:hover img {
+  transform: scale(1.12);
+  filter: brightness(0) saturate(100%) invert(82%) sepia(100%) saturate(400%)
+    hue-rotate(2deg) brightness(105%);
+}
+
+.contact-card span {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .contact-links {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  #contact {
+    padding-top: calc(var(--nav-h) + 2rem);
+    padding-bottom: 4rem;
+  }
+
+  #contact h2 {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+@keyframes floatImg {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulseRing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.15;
+  }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--yellow-dim);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+::selection {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+/* ============================================================
+   RESPONSIVE — 1024px (Tablets landscape)
+   ============================================================ */
+@media (max-width: 1024px) {
+  #about {
+    gap: 3rem;
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    padding-right: clamp(1.5rem, 4vw, 3rem);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — 768px (Tablets portrait)
+   ============================================================ */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 1.5rem;
+  }
+
+  nav a {
+    margin-left: 1rem;
+    font-size: 0.72rem;
+  }
+
+  #about {
+    flex-direction: column;
+    text-align: center;
+    padding-top: calc(var(--nav-h) + 3rem);
+  }
+
+  #about::before {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+  }
+
+  #text h2::after {
+    margin: 0.8rem auto 0;
+  }
+
+  #text {
+    max-width: 100%;
+  }
+
+  #whyme p {
+    border-left: none;
+    padding-left: 0;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — 480px (Mobile)
+   ============================================================ */
+@media (max-width: 480px) {
+  :root {
+    --nav-h: 58px;
+  }
+
+  nav h1 a {
+    font-size: 1.4rem;
+  }
+
+  nav a {
+    font-size: 0.65rem;
+    margin-left: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  #about {
+    padding-top: calc(var(--nav-h) + 2.5rem);
+  }
+
+  #about-container img {
+    width: 200px;
+  }
+
+  #about-container::before {
+    width: 240px;
+  }
+
+  #about-container::after {
+    width: 280px;
+  }
+
+  #text h2 {
+    font-size: 3rem;
+  }
+
+  #text p {
+    font-size: 0.9rem;
+  }
+
+  #skills {
+    gap: 1rem;
+  }
+
+  #skills > div {
+    width: 110px;
+    padding: 2rem;
+  }
+
+  #contact {
+    gap: 2rem;
+  }
+
+  #whyme p {
+    font-size: 2rem;
+  }
+}
